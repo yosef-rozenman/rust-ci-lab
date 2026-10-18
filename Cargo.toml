@@ -1,0 +1,8 @@
+[package]
+name = "ci-runner-onboarding-lab"
+version = "0.1.0"
+edition = "2021"
+description = "Small Rust shopping and shipping lab for CI runner onboarding"
+license = "MIT"
+
+[dependencies]

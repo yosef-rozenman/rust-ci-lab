@@ -1,0 +1,49 @@
+name: Rust baseline
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "Which platform to test"
+        required: true
+        type: choice
+        options:
+          - linux
+          - windows
+permissions:
+  contents: read
+jobs:
+  linux:
+    if: inputs.platform == 'linux'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tool versions
+        run: |
+          rustc --version
+          cargo --version
+          rustup show
+      - name: Run shop
+        run: cargo run --locked -- 2500 2500
+      - name: Build
+        run: cargo build --locked
+      - name: Test
+        run: cargo test --locked
+  windows:
+    if: inputs.platform == 'windows'
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tool versions
+        run: |
+          rustc --version
+          cargo --version
+          rustup show
+      - name: Run shop
+        run: cargo run --locked -- 2500 2500
+      - name: Build
+        run: cargo build --locked
+      - name: Test
+        run: cargo test --locked
